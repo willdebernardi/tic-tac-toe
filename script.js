@@ -20,4 +20,9 @@ const gameBoard = (() => {
     return {board, updateBoard};
 })();
 
-gameBoard.updateBoard(1, "O");
+const displayController = (() => {
+    const updateDisplay = () => {
+
+    }
+    
+})();
