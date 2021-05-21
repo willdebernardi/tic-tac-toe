@@ -7,25 +7,29 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <title>Tic-tac-toe</title>
 </head>
 <body>
     <div id="container">
-        <h1>Tic-tac-toe</h1>
-        <div id="board-container" class="hidden">
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
-            <div class="board-slot"></div>
+        <h1 class="animate__animated animate__zoomIn">Tic-tac-toe</h1>
+        <div id="board-container" class="hidden animate__animated animate__backInUp">
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
+            <button class="board-slot"></button>
         </div>
-        <div id="player-select">
-            <button class="element" id="x-select">X</button>
-            <button class="element" id="o-select">O</button>
+        <div id="player-select" class="animate__animated animate__fadeIn">
+            <button class="element x" id="x-select">X</button>
+            <button class="element o" id="o-select">O</button>
         </div>
     </div>
     <script src="script.js"></script>

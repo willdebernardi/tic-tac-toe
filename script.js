@@ -30,9 +30,11 @@ const displayView = (() => {
         for(let square of squaresArray) {
             let index = squaresArray.indexOf(square);
             if(gameBoard.board[index] == "X") {
-                square.classList.add("green");
+                square.classList.add("x");
+                square.innerHTML = "X";               
             } else if (gameBoard.board[index] == "O") {
-                square.classList.add("orange");
+                square.classList.add("o");
+                square.innerHTML = "O";
             }
         }
     }

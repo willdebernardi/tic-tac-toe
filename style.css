@@ -7,7 +7,7 @@ html, body {
 h1 {
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 72px;
+    font-size: 82px;
 }
 
 #container {
@@ -21,7 +21,6 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 200px);
     grid-template-rows: repeat(3, 200px);
-    border: 5px solid red;
 }
 
 #player-select {
@@ -29,18 +28,36 @@ h1 {
     justify-content: center;
     align-items: center;
 }
-.board-slot {
-    background-color: black;
-    border: 1px solid white;
 
+.x {
+    color: #F8333C;
+}
+
+.o {
+    color: #2B9EB3;
+}
+
+.board-slot {
+    border-radius: 20px;
+    background-color: white;
+    border: 4px solid black;
+    font-size: 150px;
 }
 
 .element {
-    font-size: 40px;
+    background-color: #ffffff;
+    height: 120px;
+    width: 120px;
+    font-size: 100px;
     margin-left: 5px;
     margin-right: 5px;
-    width: 100px;
-    height: 100px;
+    opacity: 0.5;
+    border-radius: 20px;
+    border-color: darkgray;
+}   
+
+.element:hover {
+    opacity: 1;
 }
 
 .hidden {
