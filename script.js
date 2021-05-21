@@ -22,13 +22,27 @@ const gameBoard = (() => {
 })();
 
 const displayView = (() => {
+    const squares = document.getElementsByClassName("board-slot")
+    // Convert HTMLCollection to array to use indexOf
+    const squaresArray = Array.from(squares);
+    // TODO: change square to be X/O rather than colors
     const updateDisplay = () => {
-
+        for(let square of squaresArray) {
+            let index = squaresArray.indexOf(square);
+            if(gameBoard.board[index] == "X") {
+                square.classList.add("green");
+            } else if (gameBoard.board[index] == "O") {
+                square.classList.add("orange");
+            }
+        }
     }
 
+    return {updateDisplay}
 })();
 
 const displayController = (() => {
+    const squares = document.getElementsByClassName("board-slot");
+    const squaresArray = Array.from(squares);
     const boardContainer = document.getElementById("board-container");
     const buttonContainer = document.getElementById("player-select");
     const xButton = document.getElementById("x-select");
@@ -36,7 +50,6 @@ const displayController = (() => {
 
     xButton.addEventListener("click", function() {
         gameBoard.playerState = "X";
-        console.log(gameBoard.playerState);
         buttonContainer.classList.add("hidden");
         boardContainer.classList.remove("hidden");
     });
@@ -46,4 +59,17 @@ const displayController = (() => {
         buttonContainer.classList.add("hidden");
         boardContainer.classList.remove("hidden");
     });
+
+    for (let square of squaresArray) {
+        square.addEventListener("click", function() {
+            let index = squaresArray.indexOf(square);
+            if(gameBoard.playerState == "X") {
+                gameBoard.board[index] = "X";
+                displayView.updateDisplay();
+            } else if (gameBoard.playerState == "O") {
+                gameBoard.board[index] = "O";
+                displayView.updateDisplay();
+            }
+        });
+    }
 })();
