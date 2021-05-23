@@ -50,11 +50,8 @@ const gameBoard = (() => {
                     }
                 }
             }
-        }1
-        if(result == true) {
-            resetBoard();
-            console.log(board);
         }
+        return result;
     }
 
     const resetBoard = () => {
@@ -63,7 +60,11 @@ const gameBoard = (() => {
         displayView.resetDisplay();
     }
 
-    return {board, updateBoard, playerState, checkWin, resetBoard};
+    return {
+        get board() {
+            return board;
+        }, updateBoard, playerState, checkWin, resetBoard
+    };
 })();
 
 const displayView = (() => {
@@ -110,15 +111,16 @@ const displayController = (() => {
 
     xButton.addEventListener("click", function() {
         gameBoard.playerState = "X";
-        console.log(gameBoard.playerState);
         buttonContainer.classList.add("hidden");
         boardContainer.classList.remove("hidden");
+        turnLabel.classList.remove("hidden");
     });
 
     oButton.addEventListener("click", function() {
         gameBoard.playerState = "O";
         buttonContainer.classList.add("hidden");
         boardContainer.classList.remove("hidden");
+        turnLabel.classList.remove("hidden");
     });
 
     for (let square of squaresArray) {
@@ -136,21 +138,17 @@ const displayController = (() => {
         if(gameBoard.playerState == "X") {
             gameBoard.board[index] = "X";
             displayView.updateDisplay();
-            gameBoard.checkWin();
-            console.log("In placeTile: " + gameBoard.board);
-            // if(gameBoard.checkWin()) {
-            //     console.log("x wins");
-            //     gameBoard.resetBoard();
-            // }
+            if(gameBoard.checkWin()) {
+                setTimeout(() => {alert("O wins!")}, 100);
+                setTimeout(() => gameBoard.resetBoard(), 100);
+            }
         } else if (gameBoard.playerState == "O") {
             gameBoard.board[index] = "O";
             displayView.updateDisplay();
-            gameBoard.checkWin();
-            console.log("In placeTile: " + gameBoard.board);
-            // if(gameBoard.checkWin()) {
-            //     setTimeout(() => {alert("O wins!")}, 100);
-            //     setTimeout(() => gameBoard.resetBoard(), 100);
-            // }
+            if(gameBoard.checkWin()) {
+                setTimeout(() => {alert("O wins!")}, 100);
+                setTimeout(() => gameBoard.resetBoard(), 100);
+            }
         }
 
         if(gameBoard.playerState == "X") {
