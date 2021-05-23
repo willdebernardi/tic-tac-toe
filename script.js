@@ -30,32 +30,35 @@ const gameBoard = (() => {
         }
 
         let result = false;
-        let trueCounter = 0;
+        let xCounter = 0;
+        let oCounter = 0;
         for(let property in winPos) {
-            trueCounter = 0;
+            xCounter = 0;
+            oCounter = 0;
             for(let value in winPos[property]) {
-                // console.log([winPos[property]]);
                 if(winPos[property][value] == "X") {
-                    trueCounter++;
-                    if(trueCounter == 3) {
+                    xCounter++;
+                    if(xCounter == 3) {
                         result = true;
                         break;
                     }
                 } else if (winPos[property][value] == "O") {
-                    trueCounter++;
-                    if(trueCounter == 3) {
+                    oCounter++;
+                    if(oCounter == 3) {
                         result = true;
                         break;
                     }
                 }
             }
+        }1
+        if(result == true) {
+            resetBoard();
+            console.log(board);
         }
-        return result;
     }
 
     const resetBoard = () => {
-        let board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
-        console.log("forst" + board);
+        board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
         playerState = "";
         displayView.resetDisplay();
     }
@@ -75,7 +78,9 @@ const displayView = (() => {
             if(gameBoard.board[index] == "X") {
                 square.classList.add("x");
                 square.innerHTML = "X";               
-            } else if (gameBoard.board[index] == "O") {
+            }
+            
+            if (gameBoard.board[index] == "O") {
                 square.classList.add("o");
                 square.innerHTML = "O";
             }
@@ -119,39 +124,46 @@ const displayController = (() => {
     for (let square of squaresArray) {
         square.addEventListener("click", function() {
             let index = squaresArray.indexOf(square);
-            if(gameBoard.board[index] != "e") {
-                return;
-            }
-
-            if(gameBoard.playerState == "X") {
-                gameBoard.board[index] = "X";
-                displayView.updateDisplay();
-                if(gameBoard.checkWin()) {
-                    // setTimeout(() => {alert("X wins!")}, 100);
-                    alert("x wins")
-                    gameBoard.resetBoard();
-                    console.log(gameBoard.board);
-                }
-            } else if (gameBoard.playerState == "O") {
-                gameBoard.board[index] = "O";
-                displayView.updateDisplay();
-                if(gameBoard.checkWin()) {
-                    setTimeout(() => {alert("O wins!")}, 100);
-                    gameBoard.resetBoard();
-                }
-            }
-
-            if(gameBoard.playerState == "X") {
-                gameBoard.playerState = "O";
-            } else if (gameBoard.playerState == "O") {
-                gameBoard.playerState = "X";
-            }
-
-            if(turnLabel.innerHTML == "Player one's turn") {
-                turnLabel.innerHTML = "Player two's turn";
-            } else {
-                turnLabel.innerHTML = "Player one's turn";
-            }
+            placeTile(index);
         });
     }
+
+    const placeTile = (index) => {
+        if(gameBoard.board[index] != "e") {
+            return;
+        }
+
+        if(gameBoard.playerState == "X") {
+            gameBoard.board[index] = "X";
+            displayView.updateDisplay();
+            gameBoard.checkWin();
+            console.log("In placeTile: " + gameBoard.board);
+            // if(gameBoard.checkWin()) {
+            //     console.log("x wins");
+            //     gameBoard.resetBoard();
+            // }
+        } else if (gameBoard.playerState == "O") {
+            gameBoard.board[index] = "O";
+            displayView.updateDisplay();
+            gameBoard.checkWin();
+            console.log("In placeTile: " + gameBoard.board);
+            // if(gameBoard.checkWin()) {
+            //     setTimeout(() => {alert("O wins!")}, 100);
+            //     setTimeout(() => gameBoard.resetBoard(), 100);
+            // }
+        }
+
+        if(gameBoard.playerState == "X") {
+            gameBoard.playerState = "O";
+        } else if (gameBoard.playerState == "O") {
+            gameBoard.playerState = "X";
+        }
+
+        if(turnLabel.innerHTML == "Player one's turn") {
+            turnLabel.innerHTML = "Player two's turn";
+        } else {
+            turnLabel.innerHTML = "Player one's turn";
+        }
+    }
+    
 })();
